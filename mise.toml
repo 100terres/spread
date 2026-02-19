@@ -1,0 +1,12 @@
+#:schema https://mise.jdx.dev/schema/mise.json
+
+min_version = "2026.2.5"
+
+[settings]
+experimental = true
+lockfile = true
+
+[tools]
+deno = "2.6.9"
+node = "24.13.1"
+pnpm = "10.29.3"
