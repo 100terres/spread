@@ -35,18 +35,15 @@ body = """
 {% if gitea.contributors | filter(attribute="is_first_time", value=true) | length != 0 %}
   ### New Contributors
   {% for contributor in gitea.contributors | filter(attribute="is_first_time", value=true) %}
-    * [@{{ contributor.username }}]({{ self::remote_url() }}/{{ contributor.username }}) made their first contribution
-      {%- if contributor.pr_number %} in \
-        [#{{ contributor.pr_number }}]({{ self::remote_repo_url() }}/pull/{{ contributor.pr_number }}) \
-      {%- endif %}
-  {%- endfor -%}
-  {% raw %}\n{% endraw %}
+    * [@{{ contributor.username }}]({{ self::remote_url() }}/{{ contributor.username }}) made their first contribution\
+      {%- if contributor.pr_number -%} in \
+        [#{{ contributor.pr_number }}]({{ self::remote_repo_url() }}/pull/{{ contributor.pr_number }})\
+      {%- endif -%}
+  {% endfor %}
 {%- endif -%}
-{% if version %}
-  {% if previous.version %}
-    **Full Changelog**: {{ self::remote_repo_url() }}/compare/{{ previous.version }}...{{ version }}
-    {% raw %}\n{% endraw %}
-  {% endif %}
+{% if version and previous.version %}
+  **Full Changelog**: {{ self::remote_repo_url() }}/compare/{{ previous.version }}...{{ version }}
+
 {% endif %}
 {%- macro remote_url() -%}
   {{ remote.gitea.api_url }}
