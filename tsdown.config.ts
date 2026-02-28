@@ -1,16 +1,24 @@
-import { defineConfig } from "tsdown";
+import { defineConfig, type UserConfig } from "tsdown";
 
-export default defineConfig({
+const config: UserConfig = defineConfig({
   entry: "./src/spread.ts",
-  attw: true,
   exports: true,
+  minify: true,
   publint: true,
+  tsconfig: "tsconfig.build.json",
+  attw: {
+    profile: "esm-only",
+    level: "error",
+  },
+  dts: {
+    enabled: true,
+    tsgo: true,
+  },
   format: {
     esm: {
       target: ["es2025"],
     },
-    cjs: {
-      target: ["node24"],
-    },
   },
 });
+
+export default config;

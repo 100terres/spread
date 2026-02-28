@@ -1,5 +1,14 @@
 type TValueOrCallback<T> = T | (() => T);
 
+type EmptySpread<T extends object | unknown[]> = T extends unknown[]
+  ? []
+  : object;
+
+interface Evaluators<T extends object | unknown[]> {
+  if: (condition: unknown) => T | EmptySpread<T>;
+  unless: (condition: unknown) => T | EmptySpread<T>;
+}
+
 function evaluate<T>(valueOrCallback: TValueOrCallback<T>) {
   return valueOrCallback instanceof Function
     ? valueOrCallback()
@@ -8,7 +17,7 @@ function evaluate<T>(valueOrCallback: TValueOrCallback<T>) {
 
 export default function spread<T extends object | unknown[]>(
   valueOrCallback: TValueOrCallback<T>,
-) {
+): Evaluators<T> {
   /**
    * When the condition evaluates to `false` we return an empty array. Because
    * an array can be spread into both arrays and objects, we don’t have to
@@ -29,9 +38,7 @@ export default function spread<T extends object | unknown[]>(
    * intended.
    */
   const evaluateIf = (condition: unknown) =>
-    condition
-      ? evaluate(valueOrCallback)
-      : ([] as T extends unknown[] ? [] : object);
+    condition ? evaluate(valueOrCallback) : ([] as EmptySpread<T>);
 
   return {
     if: evaluateIf,

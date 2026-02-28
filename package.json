@@ -3,7 +3,16 @@
   "name": "@100terres/spread",
   "version": "1.0.0-alpha.0",
   "description": "Ergonomic conditional spread.",
-  "keywords": [],
+  "keywords": [
+    "conditional",
+    "helper",
+    "spread",
+    "util"
+  ],
+  "homepage": "https://codeberg.org/100terres/spread",
+  "bugs": {
+    "url": "https://codeberg.org/100terres/spread/issues"
+  },
   "license": "MIT",
   "author": "Mathieu Masy <masy.mathieu@gmail.com>",
   "maintainers": [
@@ -12,35 +21,48 @@
       "email": "gab@100terres.com"
     }
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://codeberg.org/100terres/spread.git"
+  },
   "files": [
     "dist"
   ],
   "type": "module",
-  "main": "./dist/spread.cjs",
-  "module": "./dist/spread.mjs",
-  "types": "./dist/spread.d.cts",
+  "sideEffects": false,
+  "types": "./dist/spread.d.mts",
   "exports": {
-    ".": {
-      "import": "./dist/spread.mjs",
-      "require": "./dist/spread.cjs"
-    },
+    ".": "./dist/spread.mjs",
     "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "scripts": {
     "build": "tsdown",
     "dev": "tsdown --watch",
-    "test": "deno test",
-    "lint": "deno lint",
-    "format": "oxfmt"
+    "format": "oxfmt",
+    "lint": "pnpm lint:oxlint && pnpm lint:eslint",
+    "lint:eslint": "eslint",
+    "lint:eslint:fix": "eslint --fix",
+    "lint:fix": "pnpm lint:oxlint:fix && pnpm lint:eslint:fix",
+    "lint:oxlint": "oxlint --type-aware --type-check",
+    "lint:oxlint:fix": "oxlint --fix --type-aware --type-check",
+    "test": "deno test"
   },
   "devDependencies": {
     "@arethetypeswrong/core": "^0.18.2",
     "@std/expect": "jsr:@std/expect@^1.0.17",
     "@std/testing": "jsr:@std/testing@^1.0.17",
+    "@typescript/native-preview": "7.0.0-dev.20260226.1",
+    "eslint": "^10.0.2",
+    "eslint-plugin-package-json": "^0.89.1",
     "git-cliff": "^2.12.0",
     "oxfmt": "^0.35.0",
+    "oxlint": "^1.50.0",
+    "oxlint-tsgolint": "^0.15.0",
     "publint": "^0.3.17",
     "tsdown": "^0.20.3",
-    "typescript": "^5.9.3"
+    "typescript": "^6.0.0-beta"
   }
 }
