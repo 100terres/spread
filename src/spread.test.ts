@@ -1,6 +1,4 @@
-import { describe, it } from "@std/testing/bdd";
-import { assertSpyCalls, spy } from "@std/testing/mock";
-import { expect } from "@std/expect";
+import { expect, describe, it, vi } from "vitest";
 
 import spread from "./spread.ts";
 
@@ -50,7 +48,7 @@ describe("spread()", () => {
         it("invokes the callback", () => {
           const array = [1, 2, 3];
 
-          const mockFnConstructor = spy(() => array);
+          const mockFnConstructor = vi.fn(() => array);
 
           spread(() => mockFnConstructor()).if(true);
           spread(() => mockFnConstructor()).if({});
@@ -65,7 +63,7 @@ describe("spread()", () => {
           spread(() => mockFnConstructor()).if(Infinity);
           spread(() => mockFnConstructor()).if(-Infinity);
 
-          assertSpyCalls(mockFnConstructor, 12);
+          expect(mockFnConstructor).toBeCalledTimes(12);
         });
 
         describe("given a callback returning an array", () => {
@@ -127,7 +125,7 @@ describe("spread()", () => {
         it("does not invoke the callback", () => {
           const array = [1, 2, 3];
 
-          const mockFnConstructor = spy(() => array);
+          const mockFnConstructor = vi.fn(() => array);
 
           spread(() => mockFnConstructor()).if(false);
           spread(() => mockFnConstructor()).if(null);
@@ -138,7 +136,7 @@ describe("spread()", () => {
           spread(() => mockFnConstructor()).if(NaN);
           spread(() => mockFnConstructor()).if("");
 
-          assertSpyCalls(mockFnConstructor, 0);
+          expect(mockFnConstructor).not.toBeCalled();
         });
 
         it("returns an empty array", () => {
@@ -181,7 +179,7 @@ describe("spread()", () => {
         it("does not invoke the callback", () => {
           const array = [1, 2, 3];
 
-          const mockFnConstructor = spy(() => array);
+          const mockFnConstructor = vi.fn(() => array);
 
           spread(() => mockFnConstructor()).unless(true);
           spread(() => mockFnConstructor()).unless({});
@@ -196,7 +194,7 @@ describe("spread()", () => {
           spread(() => mockFnConstructor()).unless(Infinity);
           spread(() => mockFnConstructor()).unless(-Infinity);
 
-          assertSpyCalls(mockFnConstructor, 0);
+          expect(mockFnConstructor).not.toBeCalled();
         });
 
         it("returns an empty array", () => {
@@ -254,7 +252,7 @@ describe("spread()", () => {
         it("invokes the callback", () => {
           const array = [1, 2, 3];
 
-          const mockFnConstructor = spy(() => array);
+          const mockFnConstructor = vi.fn(() => array);
 
           spread(() => mockFnConstructor()).unless(false);
           spread(() => mockFnConstructor()).unless(null);
@@ -265,7 +263,7 @@ describe("spread()", () => {
           spread(() => mockFnConstructor()).unless(NaN);
           spread(() => mockFnConstructor()).unless("");
 
-          assertSpyCalls(mockFnConstructor, 8);
+          expect(mockFnConstructor).toBeCalledTimes(8);
         });
 
         describe("given a callback returning an array", () => {

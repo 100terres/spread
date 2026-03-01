@@ -48,12 +48,11 @@
     "lint:fix": "pnpm lint:oxlint:fix && pnpm lint:eslint:fix",
     "lint:oxlint": "oxlint --type-aware --type-check",
     "lint:oxlint:fix": "oxlint --fix --type-aware --type-check",
-    "test": "deno test"
+    "test": "vitest",
+    "test:coverage": "vitest run --coverage"
   },
   "devDependencies": {
     "@arethetypeswrong/core": "^0.18.2",
-    "@std/expect": "jsr:@std/expect@^1.0.17",
-    "@std/testing": "jsr:@std/testing@^1.0.17",
     "@typescript/native-preview": "7.0.0-dev.20260226.1",
     "eslint": "^10.0.2",
     "eslint-plugin-package-json": "^0.89.1",
@@ -63,6 +62,11 @@
     "oxlint-tsgolint": "^0.15.0",
     "publint": "^0.3.17",
     "tsdown": "^0.20.3",
-    "typescript": "^6.0.0-beta"
+    "typescript": "^6.0.0-beta",
+    "vitest": "^4.0.18"
+  },
+  "overrides": {
+    "rolldown": "1.0.0-rc.6",
+    "vite": "npm:rolldown-vite@7.3.1"
   }
 }
