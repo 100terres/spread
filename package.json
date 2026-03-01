@@ -54,6 +54,7 @@
   "devDependencies": {
     "@arethetypeswrong/core": "^0.18.2",
     "@typescript/native-preview": "7.0.0-dev.20260226.1",
+    "@vitest/coverage-v8": "4.0.18",
     "eslint": "^10.0.2",
     "eslint-plugin-package-json": "^0.89.1",
     "git-cliff": "^2.12.0",
