@@ -1,7 +1,7 @@
 {
   "$schema": "https://www.schemastore.org/package.json",
   "name": "@100terres/spread",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-alpha.2",
   "description": "Ergonomic conditional spread.",
   "keywords": [
     "conditional",
